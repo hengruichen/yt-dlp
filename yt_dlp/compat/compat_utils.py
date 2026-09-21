@@ -81,3 +81,4 @@ def passthrough_module(parent, child, allowed_attributes=(..., ), *, callback=la
     parent.__class__ = EnhancedModule
     parent.__getattr__ = __getattr__
     return parent
+
