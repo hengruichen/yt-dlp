@@ -55,7 +55,7 @@ def passthrough_module(parent, child, allowed_attributes=(..., ), *, callback=la
         if ret is _NO_ATTRIBUTE:
             raise AttributeError(f'module {parent.__name__} has no attribute {attr}')
         callback(attr)
-        return ret
+        return ret.fget() if isinstance(ret, property) else ret
 
     @functools.lru_cache(maxsize=None)
     def from_child(attr):
@@ -81,3 +81,4 @@ def passthrough_module(parent, child, allowed_attributes=(..., ), *, callback=la
     parent.__class__ = EnhancedModule
     parent.__getattr__ = __getattr__
     return parent
+
